@@ -1,0 +1,86 @@
+name: Integration Tests
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  Chromium:
+    name: Chromium Integration Tests
+    
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      
+    - name: Install Playwright browsers
+      run: npx playwright install --with-deps
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.x.x
+        
+    - name: Restore .NET dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build --no-restore
+      
+    - name: Test Chromium
+      run: dotnet test --no-build --verbosity normal --settings MzansiBytes.IntegrationTests/runsettings/chromium.runsettings
+  
+  Firefox:
+    name: Firefox Integration Tests
+    
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      
+    - name: Install Playwright browsers
+      run: npx playwright install --with-deps
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.x.x
+        
+    - name: Restore .NET dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build --no-restore
+      
+    - name: Test Firefox
+      run: dotnet test --no-build --verbosity normal --settings MzansiBytes.IntegrationTests/runsettings/firefox.runsettings
+
+  Webkit:
+    name: Webkit Integration Tests
+    
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      
+    - name: Install Playwright browsers
+      run: npx playwright install --with-deps
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.x.x
+        
+    - name: Restore .NET dependencies
+      run: dotnet restore
+      
+    - name: Build
+      run: dotnet build --no-restore
+      
+    - name: Test Firefox
+      run: dotnet test --no-build --verbosity normal --settings MzansiBytes.IntegrationTests/runsettings/webkit.runsettings

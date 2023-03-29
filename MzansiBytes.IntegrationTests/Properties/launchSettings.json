@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "MzansiBytes.IntegrationTests": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:50956;http://localhost:50957"
+    }
+  }
+}
